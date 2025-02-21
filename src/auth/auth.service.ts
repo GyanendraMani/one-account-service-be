@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { SignInUserDto } from './dto/sign-in.dto';
 import { SignUpUserDto } from './dto/sign-up.dto';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../modules/users/users.service';
 import { CriptoService } from 'src/common/utills/crypto.util';
 import { JwtHelper } from 'src/common/helper/jwt.helper';
 import { EncryptionService } from 'src/common/utills/encryption.utils';

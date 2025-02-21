@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Users } from './entities/user.entity';
+import { User } from './entities/user.entity';
 import { DataSource } from 'typeorm';
-import { CriptoService } from '../common/utills/crypto.util';
-8
+import { CriptoService } from '../../common/utills/crypto.util';
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -15,7 +15,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     try {
       const pwdHash = await this.criptoService.bicriptHash(createUserDto.password);
-      const user = this.dataSource.manager.create(Users, {
+      const user = this.dataSource.manager.create(User, {
         first_name: createUserDto.firstName,
         last_name: createUserDto.lastName,
         email_id: createUserDto.email,
@@ -31,15 +31,15 @@ export class UsersService {
 
   async findAll() {
     try {
-      return await this.dataSource.manager.findAndCount(Users);
+      return await this.dataSource.manager.findAndCount(User);
     } catch (error) {
       throw error
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     try {
-      return await this.dataSource.manager.findOne(Users, {
+      return await this.dataSource.manager.findOne(User, {
         where: {
           id: id,
         }
@@ -59,7 +59,7 @@ export class UsersService {
 
   async findOneByEmail(email: string) {
     try {
-      return await this.dataSource.manager.findOne(Users, {
+      return await this.dataSource.manager.findOne(User, {
         where: {
           email_id: email,
         }
